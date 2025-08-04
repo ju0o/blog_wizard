@@ -1,17 +1,21 @@
 {
   "name": "blog-wizard",
-  "productName": "blog-wizard",
+  "productName": "Blog Wizard",
   "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": "src/index.js",
+  "description": "PC용 블로거 워크스페이스 - 글쓰기, 포맷변환, 히스토리 관리",
+  "main": "src/main/index.js",
   "scripts": {
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
+    "dev": "concurrently \"npm run dev:renderer\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev:renderer": "vite",
+    "build": "vite build",
+    "package": "npm run build && electron-forge package",
+    "make": "npm run build && electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
+    "type-check": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": ["blog", "editor", "electron", "react", "typescript"],
   "author": {
     "name": "ju0o",
     "email": "skkse150@gmail.com"
@@ -19,7 +23,13 @@
   "license": "MIT",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
-    "react-quill": "^2.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.8.0",
+    "lucide-react": "^0.263.1",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^1.14.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.8.2",
@@ -31,9 +41,21 @@
     "@electron-forge/plugin-fuses": "^7.8.2",
     "@electron/fuses": "^2.0.0",
     "@types/node": "^24.1.0",
-    "@types/react": "^19.1.9",
-    "@types/react-dom": "^19.1.7",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "concurrently": "^8.0.1",
     "electron": "37.2.5",
-    "typescript": "^5.9.2"
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.9.2",
+    "vite": "^4.4.0",
+    "wait-on": "^7.0.1"
   }
 }
